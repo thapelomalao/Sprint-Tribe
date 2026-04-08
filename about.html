@@ -6,7 +6,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>ABOUT US</title>
+<style>
+  body {
+    background-image: url('images/mission-image.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    color: white;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+  }
 
+  /* Dark overlay so text is readable */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+  }
+
+  nav a {
+    color: white;
+    text-decoration: none;
+    margin-right: 20px;
+  }
+
+  nav a:hover {
+    color: orange;
+  }
+</style>
 </head>
 
 <body>
