@@ -1,71 +1,580 @@
- <!DOCTYPE html>
- <html lang="en">
- <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sprint-Tribe: High Performance Gear</title>
-  <style>
-  nav {
-    background-color: #000;
-    padding: 10px;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sprint-TRIBE | Iconic Sprint-Wear</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f5f0;
+    --accent: #e8ff00;
+    --mid: #1c1c1c;
+    --muted: #555;
+    --border: #2a2a2a;
+    --font-display: 'Barlow Condensed', sans-serif;
+    --font-body: 'Barlow', sans-serif;
   }
 
-  nav a {
-    color: white;
-    text-decoration: none;
-    margin-right: 20px;
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-body);
     font-size: 16px;
+    line-height: 1.5;
+    overflow-x: hidden;
   }
 
-  nav a:hover {
-    color: orange;
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px;
+    height: 64px;
+    background: var(--black);
+    border-bottom: 1px solid var(--border);
   }
-   body {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-}
 
-h1, h2, p {
-  text-align: center;
-}
+  .logo {
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: -1px;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .logo span { color: var(--accent); }
 
-img {
-  display: block;
-  margin: 0 auto;
-}
+  .nav-links {
+    display: flex; gap: 36px; list-style: none;
+  }
+  .nav-links a {
+    font-family: var(--font-display);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .cart-btn {
+    background: none; border: none; cursor: pointer;
+    color: var(--white); font-size: 20px;
+    padding: 6px; transition: color .2s;
+  }
+  .cart-btn:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 88vh;
+    display: flex; align-items: flex-end;
+    padding: 80px 60px;
+    overflow: hidden;
+    background: var(--black);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 70% at 70% 50%, #1a1a00 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 80% 30%, #2a2800 0%, transparent 60%);
+  }
+
+  /* Diagonal graphic stripe */
+  .hero-stripe {
+    position: absolute; right: -60px; top: -40px;
+    width: 520px; height: 110%;
+    background: #111100;
+    transform: skewX(-8deg);
+    border-left: 1px solid #2a2a00;
+  }
+
+  .hero-content { position: relative; z-index: 2; max-width: 520px; }
+
+  .hero-eyebrow {
+    font-family: var(--font-display);
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 4px; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 20px;
+    opacity: 0; animation: fadeUp .6s .1s forwards;
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(64px, 10vw, 110px);
+    font-weight: 900;
+    line-height: .92;
+    letter-spacing: -3px;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 28px;
+    opacity: 0; animation: fadeUp .6s .2s forwards;
+  }
+  .hero-title span { color: var(--accent); }
+
+  .hero-sub {
+    font-size: 16px; font-weight: 300;
+    color: #aaa; max-width: 320px;
+    margin-bottom: 44px;
+    opacity: 0; animation: fadeUp .6s .35s forwards;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: 13px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    background: var(--accent); color: var(--black);
+    padding: 16px 40px; border: none; cursor: pointer;
+    text-decoration: none;
+    transition: background .2s, transform .15s;
+    opacity: 0; animation: fadeUp .6s .45s forwards;
+  }
+  .btn-primary:hover { background: #fff; transform: translateY(-2px); }
+
+  /* Slider dots */
+  .hero-dots {
+    position: absolute; bottom: 40px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; gap: 8px;
+  }
+  .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--border); cursor: pointer;
+    transition: background .2s;
+  }
+  .dot.active { background: var(--accent); }
+
+  /* ── PERKS BAR ── */
+  .perks {
+    display: grid; grid-template-columns: 1fr 1fr;
+    border-bottom: 1px solid var(--border);
+  }
+  .perk {
+    display: flex; align-items: center; gap: 20px;
+    padding: 28px 48px;
+    border-right: 1px solid var(--border);
+  }
+  .perk:last-child { border-right: none; }
+  .perk-icon { font-size: 32px; flex-shrink: 0; }
+  .perk-text strong {
+    display: block;
+    font-family: var(--font-display);
+    font-size: 17px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .5px;
+    color: var(--white);
+  }
+  .perk-text span { font-size: 13px; color: var(--muted); }
+
+  /* ── SECTION HEADER ── */
+  .section-header {
+    padding: 64px 48px 0;
+    display: flex; align-items: baseline; justify-content: space-between;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: 42px; font-weight: 900;
+    text-transform: uppercase; letter-spacing: -1px;
+  }
+  .see-all {
+    font-family: var(--font-display);
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted); text-decoration: none;
+    transition: color .2s;
+  }
+  .see-all:hover { color: var(--accent); }
+
+  /* ── CATEGORY GRID ── */
+  .category-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    padding: 24px 48px 64px;
+  }
+
+  .category-card {
+    position: relative; overflow: hidden; cursor: pointer;
+    aspect-ratio: 3/4;
+    background: var(--mid);
+  }
+
+  .cat-img {
+    width: 100%; height: 100%; object-fit: cover;
+    background: linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%);
+    display: flex; align-items: center; justify-content: center;
+    transition: transform .4s ease;
+  }
+
+  /* placeholder pattern for missing images */
+  .cat-img::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(45deg, #1f1f1f 0px, #1f1f1f 1px, transparent 1px, transparent 20px),
+      repeating-linear-gradient(-45deg, #1f1f1f 0px, #1f1f1f 1px, transparent 1px, transparent 20px);
+  }
+
+  .category-card:hover .cat-img { transform: scale(1.04); }
+
+  .cat-overlay {
+    position: absolute; bottom: 0; left: 0; right: 0;
+    padding: 32px 28px 28px;
+    background: linear-gradient(transparent, rgba(0,0,0,.85));
+  }
+  .cat-name {
+    font-family: var(--font-display);
+    font-size: 30px; font-weight: 900;
+    text-transform: uppercase; letter-spacing: -1px;
+    color: var(--white); display: block;
+  }
+  .cat-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 10px;
+    font-family: var(--font-display);
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--accent); text-decoration: none;
+    transition: gap .2s;
+  }
+  .cat-link:hover { gap: 14px; }
+  .cat-link::after { content: '→'; }
+
+  /* ── BEST SELLERS ── */
+  .bestsellers {
+    padding: 0 48px 80px;
+    border-top: 1px solid var(--border);
+    margin-top: 0;
+  }
+
+  .products-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 32px;
+  }
+
+  .product-card {
+    cursor: pointer;
+    transition: transform .25s;
+  }
+  .product-card:hover { transform: translateY(-6px); }
+
+  .product-img {
+    aspect-ratio: 1/1.1;
+    background: var(--mid);
+    position: relative; overflow: hidden;
+    margin-bottom: 16px;
+  }
+  .product-img::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(45deg, #222 0px, #222 1px, transparent 1px, transparent 18px),
+      repeating-linear-gradient(-45deg, #222 0px, #222 1px, transparent 1px, transparent 18px);
+  }
+
+  /* accent corner tag */
+  .product-img::after {
+    content: 'NEW';
+    position: absolute; top: 16px; left: 0;
+    background: var(--accent); color: var(--black);
+    font-family: var(--font-display);
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 2px;
+    padding: 4px 10px;
+  }
+
+  .product-name {
+    font-family: var(--font-display);
+    font-size: 18px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: .5px;
+    color: var(--white);
+  }
+  .product-price {
+    font-family: var(--font-display);
+    font-size: 16px; font-weight: 600;
+    color: var(--accent); margin-top: 4px;
+  }
+
+  /* ── NEWSLETTER ── */
+  .newsletter {
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 56px 48px;
+    background: var(--mid);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    gap: 40px;
+  }
+
+  .newsletter-left { display: flex; align-items: center; gap: 24px; }
+  .mail-icon { font-size: 40px; flex-shrink: 0; }
+  .newsletter-heading {
+    font-family: var(--font-display);
+    font-size: 28px; font-weight: 900;
+    text-transform: uppercase; letter-spacing: -1px;
+  }
+  .newsletter-sub { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+  .newsletter-right { display: flex; gap: 0; }
+  .newsletter-input {
+    flex: 1;
+    padding: 16px 20px;
+    background: var(--black);
+    border: 1px solid var(--border);
+    border-right: none;
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 14px;
+    outline: none;
+    transition: border-color .2s;
+  }
+  .newsletter-input:focus { border-color: var(--accent); }
+  .newsletter-input::placeholder { color: var(--muted); }
+
+  .btn-signup {
+    padding: 16px 32px;
+    background: var(--accent);
+    border: none; cursor: pointer;
+    font-family: var(--font-display);
+    font-size: 13px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--black);
+    transition: background .2s;
+  }
+  .btn-signup:hover { background: var(--white); }
+
+  /* ── FOOTER ── */
+  footer {
+    display: grid; grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 40px;
+    padding: 56px 48px 40px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .footer-brand .logo { display: block; margin-bottom: 12px; font-size: 22px; }
+  .footer-copy { font-size: 12px; color: var(--muted); margin-top: 16px; }
+
+  .footer-col-title {
+    font-family: var(--font-display);
+    font-size: 13px; font-weight: 700;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 20px;
+  }
+
+  .social-link {
+    display: block;
+    border: 1px solid var(--border);
+    padding: 12px 20px;
+    margin-bottom: 10px;
+    font-family: var(--font-display);
+    font-size: 13px; font-weight: 600;
+    letter-spacing: 1px; text-transform: uppercase;
+    color: var(--white); text-decoration: none;
+    transition: border-color .2s, color .2s;
+  }
+  .social-link:hover { border-color: var(--accent); color: var(--accent); }
+
+  .contact-item {
+    display: block;
+    border: 1px solid var(--border);
+    padding: 10px 16px;
+    margin-bottom: 8px;
+    font-size: 13px; color: var(--muted);
+  }
+
+  .footer-bottom {
+    padding: 20px 48px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--border);
+    letter-spacing: 1px;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity .6s ease, transform .6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
 </style>
- </head>
+</head>
+<body>
 
-  <body>
-
-  <nav>
-  <a href="index.html">Home</a>
-  <a href="about.html">About</a>
-  <a href="equipment.html">Equipment</a>
-  <a href="contact.html">Contact</a>
+<!-- NAV -->
+<nav>
+  <a class="logo" href="#">Sprint<span>–</span>TRIBE</a>
+  <ul class="nav-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="#">Shop</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="cart-btn" aria-label="Cart">🛒</button>
+  </div>
 </nav>
-   
-   <h1>SPRINT-TRIBE: EVOLUTION AT FULL SPEED</h1>
-   <p>Engineering the edge between raw human power and world record speed</p>
 
-   <h2>FROM LEATHER TO CARBON: THE EVOLUTION OF SPEED</h2>
-   <p>Sprinting is the ultimate test of human power, but the equipment an athlete wears can make all
-    the difference. When Jesse Owens ran in 1936, he dug holes in a cinder track and wore heavy leather
-    shoes which gave poor energy return.</p>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-stripe"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">New Collection 2026</p>
+    <h1 class="hero-title">Sprint<span>–</span><br>TRIBE</h1>
+    <p class="hero-sub">Iconic sprint-wear made with cutting-edge technology</p>
+    <a href="#" class="btn-primary">Shop New Arrivals</a>
+  </div>
+  <div class="hero-dots">
+    <div class="dot active"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+</section>
 
-   <img src="images/jesse-owens.jpg" alt=jesse-owens">
+<!-- PERKS -->
+<div class="perks reveal">
+  <div class="perk">
+    <div class="perk-icon">🚚</div>
+    <div class="perk-text">
+      <strong>Free shipping</strong>
+      <span>For orders over P3500</span>
+    </div>
+  </div>
+  <div class="perk">
+    <div class="perk-icon">↩</div>
+    <div class="perk-text">
+      <strong>Free Returns</strong>
+      <span>Within 60 days</span>
+    </div>
+  </div>
+</div>
 
-   <p>Compare that to modern champions like Usain Bolt and Letsile Tebogo, who explode from starting blocks
-   onto synthetic, energy-returning tracks in lightweight <i>"super spikes"</i> with carbon fiber plates.</p>
+<!-- CATEGORIES -->
+<div class="section-header reveal">
+  <h2 class="section-title">Shop By Category</h2>
+  <a href="#" class="see-all">View All →</a>
+</div>
+<div class="category-grid reveal">
+  <div class="category-card">
+    <div class="cat-img"></div>
+    <div class="cat-overlay">
+      <span class="cat-name">Men</span>
+      <a href="#" class="cat-link">Shop now</a>
+    </div>
+  </div>
+  <div class="category-card">
+    <div class="cat-img"></div>
+    <div class="cat-overlay">
+      <span class="cat-name">Women</span>
+      <a href="#" class="cat-link">Shop now</a>
+    </div>
+  </div>
+  <div class="category-card">
+    <div class="cat-img"></div>
+    <div class="cat-overlay">
+      <span class="cat-name">Kids</span>
+      <a href="#" class="cat-link">Shop now</a>
+    </div>
+  </div>
+</div>
 
-   <img src="images/puma thesaus II.jpg" alt="puma thesaus II"> <img src="images/maxfly-2.jpg" alt="maxfly-2">
+<!-- BEST SELLERS -->
+<section class="bestsellers">
+  <div class="section-header reveal" style="padding-left:0;padding-right:0;">
+    <h2 class="section-title">Best Sellers</h2>
+    <a href="#" class="see-all">View All →</a>
+  </div>
+  <div class="products-grid reveal">
+    <div class="product-card">
+      <div class="product-img"></div>
+      <div class="product-name">Maxfly 2</div>
+      <div class="product-price">P1,200</div>
+    </div>
+    <div class="product-card">
+      <div class="product-img"></div>
+      <div class="product-name">Sprint Tribe Ts Tracksuit</div>
+      <div class="product-price">P700</div>
+    </div>
+    <div class="product-card">
+      <div class="product-img"></div>
+      <div class="product-name">ST54 Tights</div>
+      <div class="product-price">P105</div>
+    </div>
+  </div>
+</section>
 
-   <p>At Sprint-Tribe, we produce gear that defines the current generation and era because whilst the engine is 
-   human the technology behind it maximisizes every millisecond to produce peak performance.</p>
-  </body>
- </html>
+<!-- NEWSLETTER -->
+<div class="newsletter reveal">
+  <div class="newsletter-left">
+    <div class="mail-icon">✉</div>
+    <div>
+      <div class="newsletter-heading">Join Our Community</div>
+      <p class="newsletter-sub">Sign up for exclusive access to product launches, stories and style</p>
+    </div>
+  </div>
+  <div class="newsletter-right">
+    <input class="newsletter-input" type="email" placeholder="Enter email address">
+    <button class="btn-signup">Sign up</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="reveal">
+  <div class="footer-brand">
+    <a class="logo" href="#">Sprint<span>–</span>TRIBE</a>
+    <p class="footer-copy">2026, Sprint-Tribe.INC. All Rights Reserved</p>
+  </div>
+  <div>
+    <div class="footer-col-title">Follow Us</div>
+    <a href="#" class="social-link">TikTok</a>
+    <a href="#" class="social-link">Instagram</a>
+  </div>
+  <div>
+    <div class="footer-col-title">Contact Us</div>
+    <span class="contact-item">Phone: 267 75664643</span>
+    <span class="contact-item">Gaborone, Botswana</span>
+    <span class="contact-item">sprint@sprinttribe.com</span>
+  </div>
+</footer>
+<div class="footer-bottom">Sprint-TRIBE — Iconic Sprint-Wear</div>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => io.observe(el));
+
+  // Dot cycling
+  const dots = document.querySelectorAll('.dot');
+  let current = 0;
+  setInterval(() => {
+    dots[current].classList.remove('active');
+    current = (current + 1) % dots.length;
+    dots[current].classList.add('active');
+  }, 2000);
+</script>
+</body>
+</html>
    
    
 
