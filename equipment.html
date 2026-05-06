@@ -3,4 +3,484 @@
  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EQUIPMENT & GEAR</title>
+    <title>OUR PRODUCTS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --black: #0a0a0a;
+      --white: #f5f5f0;
+      --accent: #e8ff00;
+      --mid: #1c1c1c;
+      --border: #2e2e2e;
+      --muted: #888;
+    }
+ 
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-size: 15px;
+      letter-spacing: 0.01em;
+    }
+ 
+    /* ─── NAV ─────────────────────────────────────────── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+      height: 64px;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: var(--black);
+      z-index: 100;
+    }
+ 
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+    }
+ 
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+    }
+ 
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+ 
+    .nav-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+ 
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--white); }
+ 
+    .cart-icon {
+      position: relative;
+      cursor: pointer;
+      color: var(--white);
+    }
+ 
+    .cart-icon svg { display: block; }
+ 
+    .cart-badge {
+      position: absolute;
+      top: -6px; right: -8px;
+      background: var(--accent);
+      color: var(--black);
+      font-size: 9px;
+      font-weight: 700;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+ 
+    /* ─── HERO STRIP ──────────────────────────────────── */
+    .shop-hero {
+      padding: 60px 40px 40px;
+      border-bottom: 1px solid var(--border);
+    }
+ 
+    .shop-hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(52px, 9vw, 110px);
+      line-height: 0.92;
+      letter-spacing: 0.05em;
+      color: var(--white);
+    }
+ 
+    .shop-hero h1 span { color: var(--accent); }
+ 
+    .hero-sub {
+      margin-top: 18px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+ 
+    /* ─── SECTION LABEL ───────────────────────────────── */
+    .section-label {
+      padding: 32px 40px 0;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+ 
+    .section-label h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 13px;
+      letter-spacing: 0.22em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+ 
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+ 
+    /* ─── PRODUCT GRID ────────────────────────────────── */
+    .products {
+      padding: 28px 40px 60px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+    }
+ 
+    .product-card {
+      background: var(--mid);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      transition: border-color 0.25s;
+    }
+ 
+    .product-card:hover { border-color: var(--accent); }
+ 
+    /* ── IMAGE SLOT ── */
+    .product-img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: #141414;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+ 
+    /* Diagonal placeholder lines */
+    .product-img::before,
+    .product-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom right, transparent calc(50% - 0.5px), var(--border) calc(50% - 0.5px), var(--border) calc(50% + 0.5px), transparent calc(50% + 0.5px)),
+        linear-gradient(to bottom left,  transparent calc(50% - 0.5px), var(--border) calc(50% - 0.5px), var(--border) calc(50% + 0.5px), transparent calc(50% + 0.5px));
+    }
+ 
+    /* Drop your <img> tag here — it will cover the placeholder */
+    .product-img img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 2;
+      transition: transform 0.45s ease;
+    }
+ 
+    .product-card:hover .product-img img { transform: scale(1.04); }
+ 
+    .img-placeholder-label {
+      position: relative;
+      z-index: 1;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--border);
+      pointer-events: none;
+    }
+ 
+    /* ── PRODUCT INFO ── */
+    .product-info {
+      padding: 18px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      flex: 1;
+    }
+ 
+    .product-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 22px;
+      letter-spacing: 0.1em;
+      color: var(--white);
+    }
+ 
+    .product-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+ 
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 11px 0;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      text-decoration: none;
+    }
+ 
+    .btn-primary {
+      background: var(--accent);
+      color: var(--black);
+    }
+ 
+    .btn-primary:hover { background: #d4e800; }
+ 
+    .btn-secondary {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+ 
+    .btn-secondary:hover { border-color: var(--white); color: var(--white); }
+ 
+    /* ─── CTA BANNER ──────────────────────────────────── */
+    .cta-banner {
+      border-top: 1px solid var(--border);
+      padding: 72px 40px;
+      text-align: center;
+      background: #0f0f0f;
+    }
+ 
+    .cta-banner h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(36px, 6vw, 72px);
+      letter-spacing: 0.06em;
+      color: var(--white);
+    }
+ 
+    .cta-banner h2 span { color: var(--accent); }
+ 
+    .cta-banner p {
+      margin: 14px auto 32px;
+      max-width: 420px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+ 
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+ 
+    .cta-buttons .btn {
+      width: auto;
+      padding: 14px 40px;
+      font-size: 11px;
+    }
+ 
+    /* ─── FOOTER ──────────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+ 
+    .footer-follow h4 {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+ 
+    .footer-follow a {
+      margin-right: 16px;
+      color: var(--white);
+      font-size: 13px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+ 
+    .footer-follow a:hover { color: var(--accent); }
+ 
+    .footer-copy {
+      font-size: 12px;
+      color: var(--muted);
+      align-self: flex-end;
+    }
+ 
+    /* ─── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 900px) {
+      .products { grid-template-columns: repeat(2, 1fr); }
+    }
+ 
+    @media (max-width: 580px) {
+      nav { padding: 0 20px; }
+      .shop-hero, .section-label, .products, .cta-banner, footer { padding-left: 20px; padding-right: 20px; }
+      .products { grid-template-columns: 1fr; gap: 1px; }
+    }
+  </style>
+</head>
+<body>
+ 
+  <!-- ── NAV ── -->
+  <nav>
+    <div class="logo">Sprint-Tribe</div>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#" class="active">Shop</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <div class="cart-icon">
+        <svg width="22" height="20" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 01-8 0"/>
+        </svg>
+        <div class="cart-badge">0</div>
+      </div>
+    </div>
+  </nav>
+ 
+  <!-- ── HERO ── -->
+  <section class="shop-hero">
+    <h1>Our <span>Products</span></h1>
+    <p class="hero-sub">Premium athletic wear — built to perform</p>
+  </section>
+ 
+  <!-- ── PRODUCTS ── -->
+  <div class="section-label"><h2>All Collections</h2></div>
+ 
+  <div class="products">
+ 
+    <!-- CARD 1: SPIKES -->
+    <div class="product-card">
+      <div class="product-img">
+      <img src="volanti.jpg"  alt="volanti.jpg"/>
+        -->
+        
+      </div>
+      <div class="product-info">
+        <div class="product-name">Spikes</div>
+        <div class="product-actions">
+          <button class="btn btn-primary">Add to Cart</button>
+          <button class="btn btn-secondary">View Collection</button>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- CARD 2: TRACKSUITS -->
+    <div class="product-card">
+      <div class="product-img">
+      <img src="tracksuitt.jpg" alt="tracksuitt.jpg"/>
+        -->
+        
+      </div>
+      <div class="product-info">
+        <div class="product-name">Tracksuits</div>
+        <div class="product-actions">
+          <button class="btn btn-primary">Add to Cart</button>
+          <button class="btn btn-secondary">View Collection</button>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- CARD 3: VESTS -->
+    <div class="product-card">
+      <div class="product-img">
+        
+     <img src="vest.jpg" alt="vest.jpg"/>
+        -->
+        
+      </div>
+      <div class="product-info">
+        <div class="product-name">Vests</div>
+        <div class="product-actions">
+          <button class="btn btn-primary">Add to Cart</button>
+          <button class="btn btn-secondary">View Collection</button>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- CARD 4: TIGHTS -->
+    <div class="product-card">
+      <div class="product-img">
+       <img src="Tights.jpg.jpg" alt="Tights.jpg"/>
+        -->
+        
+      </div>
+      <div class="product-info">
+        <div class="product-name">Tights</div>
+        <div class="product-actions">
+          <button class="btn btn-primary">Add to Cart</button>
+          <button class="btn btn-secondary">View Collection</button>
+        </div>
+      </div>
+    </div>
+ 
+    <!-- CARD 5: RUNNING SHOES -->
+    <div class="product-card">
+      <div class="product-img">
+        
+ <img src="runningshoe.jpg"   alt="runningshoe"/>
+        -->
+        
+      </div>
+      <div class="product-info">
+        <div class="product-name">Running Shoes</div>
+        <div class="product-actions">
+          <button class="btn btn-primary">Add to Cart</button>
+          <button class="btn btn-secondary">View Collection</button>
+        </div>
+      </div>
+    </div>
+ 
+  </div><!-- /products -->
+ 
+  <!-- ── CTA BANNER ── -->
+  <section class="cta-banner">
+    <h2>Ready to <span>Elevate</span> Your Style</h2>
+    <p>Join thousands of customers who trust Sprint-Tribe for premium quality</p>
+    <div class="cta-buttons">
+      <a href="#" class="btn btn-primary">Shop Collection</a>
+      <a href="#" class="btn btn-secondary">Get in Touch</a>
+    </div>
+  </section>
+ 
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-follow">
+      <h4>Follow Us</h4>
+      <a href="#">Instagram</a>
+      <a href="#">Facebook</a>
+      <a href="#">TikTok</a>
+    </div>
+    <div class="footer-copy">2026, INC Sprint-Tribe. All Rights Reserved</div>
+  </footer>
+ 
+</body>
+</html>
