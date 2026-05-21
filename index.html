@@ -8,557 +8,571 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-  *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+:root{
+  --black:#111111;
+  --dark:#171717;
+  --card:#1f1f1f;
+  --light:#f5f5f5;
+  --gray:#8d8d8d;
+  --border:#2a2a2a;
+
+  --font-display:'Barlow Condensed',sans-serif;
+  --font-body:'Barlow',sans-serif;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:var(--black);
+  color:var(--light);
+  font-family:var(--font-body);
+  overflow-x:hidden;
+}
+
+img{
+  max-width:100%;
+  display:block;
+}
+
+/* ================= NAV ================= */
+
+nav{
+  position:sticky;
+  top:0;
+  z-index:999;
+  background:#111111ee;
+  backdrop-filter:blur(10px);
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  padding:0 50px;
+  height:72px;
+
+  border-bottom:1px solid var(--border);
+}
+
+.logo{
+  text-decoration:none;
+  color:var(--light);
+  font-family:var(--font-display);
+  font-size:30px;
+  font-weight:900;
+  letter-spacing:-1px;
+}
+
+.logo span{
+  color:#cfcfcf;
+}
+
+.nav-links{
+  display:flex;
+  gap:38px;
+  list-style:none;
+}
+
+.nav-links a{
+  text-decoration:none;
+  color:#bdbdbd;
+  font-family:var(--font-display);
+  text-transform:uppercase;
+  letter-spacing:2px;
+  font-size:13px;
+  transition:0.25s ease;
+}
+
+.nav-links a:hover{
+  color:white;
+}
+
+.cart-btn{
+  border:none;
+  background:none;
+  color:white;
+  font-size:20px;
+  cursor:pointer;
+}
+
+/* ================= HERO ================= */
+
+.hero{
+  position:relative;
+  min-height:92vh;
+  display:flex;
+  align-items:center;
+  padding:80px 70px;
+  overflow:hidden;
+  border-bottom:1px solid var(--border);
+}
+
+/* SLIDESHOW */
+
+.hero-slider{
+  position:absolute;
+  inset:0;
+  z-index:0;
+}
+
+.hero-slide{
+  position:absolute;
+  inset:0;
+
+  background-size:cover;
+  background-position:center;
+
+  opacity:0;
+  transition:opacity 1.2s ease-in-out;
+}
+
+.hero-slide.active{
+  opacity:1;
+}
+
+/* OVERLAY */
+
+.hero-overlay{
+  position:absolute;
+  inset:0;
+  background:
+  linear-gradient(
+    to right,
+    rgba(17,17,17,0.92) 20%,
+    rgba(17,17,17,0.55) 55%,
+    rgba(17,17,17,0.25)
+  );
+
+  z-index:1;
+}
+
+/* HERO CONTENT */
+
+.hero-content{
+  position:relative;
+  z-index:2;
+  max-width:600px;
+}
+
+.hero-eyebrow{
+  color:#d4d4d4;
+  text-transform:uppercase;
+  letter-spacing:4px;
+  font-size:13px;
+  margin-bottom:20px;
+}
+
+.hero-title{
+  font-family:var(--font-display);
+  font-size:clamp(70px,10vw,130px);
+  line-height:0.9;
+  text-transform:uppercase;
+  font-weight:900;
+  margin-bottom:25px;
+}
+
+.hero-title span{
+  color:#d6d6d6;
+}
+
+.hero-sub{
+  color:#d0d0d0;
+  font-size:18px;
+  max-width:400px;
+  margin-bottom:35px;
+}
+
+.btn-primary{
+  display:inline-block;
+  text-decoration:none;
+  background:white;
+  color:black;
+  padding:16px 38px;
+  border-radius:40px;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  transition:0.3s;
+}
+
+.btn-primary:hover{
+  background:#d9d9d9;
+  transform:translateY(-3px);
+}
+
+/* ================= PERKS ================= */
+
+.perks{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  border-bottom:1px solid var(--border);
+}
+
+.perk{
+  padding:30px 50px;
+  display:flex;
+  gap:18px;
+  align-items:center;
+  background:var(--dark);
+  border-right:1px solid var(--border);
+}
+
+.perk:last-child{
+  border-right:none;
+}
+
+.perk-icon{
+  font-size:28px;
+}
+
+.perk-text strong{
+  display:block;
+  font-size:17px;
+  text-transform:uppercase;
+  font-family:var(--font-display);
+}
+
+.perk-text span{
+  color:var(--gray);
+  font-size:14px;
+}
+
+/* ================= SECTION ================= */
+
+.section-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:70px 50px 25px;
+}
+
+.section-title{
+  font-family:var(--font-display);
+  font-size:48px;
+  text-transform:uppercase;
+  font-weight:900;
+}
+
+.see-all{
+  color:#bdbdbd;
+  text-decoration:none;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  font-size:12px;
+}
+
+.see-all:hover{
+  color:white;
+}
+
+/* ================= CATEGORY GRID ================= */
+
+.category-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+  padding:0 50px 70px;
+}
+
+.category-card{
+  position:relative;
+  overflow:hidden;
+  border-radius:18px;
+  background:var(--card);
+  min-height:520px;
+}
+
+.cat-img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform 0.5s ease;
+}
+
+.category-card:hover .cat-img{
+  transform:scale(1.06);
+}
+
+.cat-overlay{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  padding:30px;
+  background:linear-gradient(to top,rgba(0,0,0,0.85),transparent 55%);
+}
+
+.cat-name{
+  font-family:var(--font-display);
+  font-size:38px;
+  text-transform:uppercase;
+  font-weight:900;
+}
+
+.cat-link{
+  margin-top:10px;
+  color:white;
+  text-decoration:none;
+  font-size:14px;
+  letter-spacing:2px;
+  text-transform:uppercase;
+}
+
+/* ================= BEST SELLERS ================= */
+
+.bestsellers{
+  padding:0 50px 80px;
+}
+
+.products-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:28px;
+  margin-top:20px;
+}
+
+.product-card{
+  transition:0.3s;
+}
+
+.product-card:hover{
+  transform:translateY(-6px);
+}
+
+.product-img{
+  aspect-ratio:1/1.1;
+  overflow:hidden;
+  border-radius:18px;
+  background:var(--card);
+  margin-bottom:18px;
+}
+
+.product-img img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:0.5s ease;
+}
+
+.product-card:hover img{
+  transform:scale(1.05);
+}
+
+.product-name{
+  font-family:var(--font-display);
+  font-size:24px;
+  text-transform:uppercase;
+}
+
+.product-price{
+  margin-top:5px;
+  color:#cfcfcf;
+  font-size:16px;
+}
+
+/* ================= NEWSLETTER ================= */
+
+.newsletter{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;
+
+  padding:60px 50px;
+
+  background:var(--dark);
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+}
+
+.newsletter-left{
+  display:flex;
+  gap:20px;
+  align-items:center;
+}
+
+.mail-icon{
+  font-size:42px;
+}
+
+.newsletter-heading{
+  font-family:var(--font-display);
+  font-size:36px;
+  text-transform:uppercase;
+  font-weight:900;
+}
+
+.newsletter-sub{
+  color:var(--gray);
+  margin-top:5px;
+}
+
+.newsletter-right{
+  display:flex;
+}
+
+.newsletter-input{
+  flex:1;
+  padding:16px;
+  border:none;
+  outline:none;
+  background:#2a2a2a;
+  color:white;
+}
+
+.btn-signup{
+  padding:16px 32px;
+  border:none;
+  background:white;
+  color:black;
+  font-weight:700;
+  cursor:pointer;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+  display:grid;
+  grid-template-columns:1.2fr 1fr 1fr;
+  gap:40px;
+  padding:60px 50px;
+}
+
+.footer-col-title{
+  margin-bottom:20px;
+  color:#8d8d8d;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  font-size:12px;
+}
+
+.social-link{
+  display:block;
+  color:white;
+  text-decoration:none;
+  margin-bottom:12px;
+}
+
+.social-link:hover{
+  color:#cfcfcf;
+}
+
+.contact-item{
+  display:block;
+  margin-bottom:10px;
+  color:#9a9a9a;
+}
+
+.footer-copy{
+  color:#777;
+  margin-top:15px;
+  font-size:13px;
+}
+
+.footer-bottom{
+  text-align:center;
+  padding:20px;
+  border-top:1px solid var(--border);
+  color:#777;
+  font-size:12px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width:1100px){
+
+  .category-grid,
+  .products-grid{
+    grid-template-columns:repeat(2,1fr);
   }
 
-  :root{
-    --black:#111111;
-    --dark:#171717;
-    --card:#1f1f1f;
-    --light:#f5f5f5;
-    --gray:#8d8d8d;
-    --border:#2a2a2a;
-    --accent:#ffffff;
-
-    --font-display:'Barlow Condensed',sans-serif;
-    --font-body:'Barlow',sans-serif;
+  footer{
+    grid-template-columns:1fr 1fr;
   }
+}
 
-  html{
-    scroll-behavior:smooth;
-  }
-
-  body{
-    background:var(--black);
-    color:var(--light);
-    font-family:var(--font-body);
-    overflow-x:hidden;
-  }
-
-  img{
-    max-width:100%;
-    display:block;
-  }
-
-  /* ================= NAV ================= */
+@media (max-width:768px){
 
   nav{
-    position:sticky;
-    top:0;
-    z-index:999;
-    background:#111111ee;
-    backdrop-filter:blur(10px);
-
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
-    padding:0 50px;
-    height:72px;
-
-    border-bottom:1px solid var(--border);
-  }
-
-  .logo{
-    text-decoration:none;
-    color:var(--light);
-    font-family:var(--font-display);
-    font-size:30px;
-    font-weight:900;
-    letter-spacing:-1px;
-  }
-
-  .logo span{
-    color:#cfcfcf;
+    padding:20px;
+    flex-wrap:wrap;
+    height:auto;
+    gap:18px;
   }
 
   .nav-links{
-    display:flex;
-    gap:38px;
-    list-style:none;
+    gap:18px;
+    flex-wrap:wrap;
   }
-
-  .nav-links a{
-    text-decoration:none;
-    color:#bdbdbd;
-    font-family:var(--font-display);
-    text-transform:uppercase;
-    letter-spacing:2px;
-    font-size:13px;
-    transition:0.25s ease;
-  }
-
-  .nav-links a:hover{
-    color:white;
-  }
-
-  .nav-right{
-    display:flex;
-    align-items:center;
-  }
-
-  .cart-btn{
-    border:none;
-    background:none;
-    color:white;
-    font-size:20px;
-    cursor:pointer;
-    transition:0.2s;
-  }
-
-  .cart-btn:hover{
-    transform:scale(1.1);
-  }
-
-  /* ================= HERO ================= */
 
   .hero{
-    position:relative;
-    min-height:92vh;
-    display:flex;
-    align-items:center;
-    padding:80px 70px;
-    overflow:hidden;
-
-    background:
-    linear-gradient(to right,#111111 30%,rgba(17,17,17,0.7)),
-    url('images/jesse-owens.jpg');
-
-    background-size:cover;
-    background-position:center;
-    border-bottom:1px solid var(--border);
-  }
-
-  .hero::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:linear-gradient(to top,rgba(0,0,0,0.8),rgba(0,0,0,0.2));
-  }
-
-  .hero-content{
-    position:relative;
-    z-index:2;
-    max-width:600px;
-  }
-
-  .hero-eyebrow{
-    color:#cfcfcf;
-    text-transform:uppercase;
-    letter-spacing:4px;
-    font-size:13px;
-    margin-bottom:20px;
+    padding:70px 25px;
+    min-height:75vh;
   }
 
   .hero-title{
-    font-family:var(--font-display);
-    font-size:clamp(70px,10vw,130px);
-    line-height:0.9;
-    text-transform:uppercase;
-    font-weight:900;
-    margin-bottom:25px;
+    font-size:70px;
   }
 
-  .hero-title span{
-    color:#d6d6d6;
+  .section-header,
+  .category-grid,
+  .bestsellers,
+  .newsletter,
+  footer{
+    padding-left:20px;
+    padding-right:20px;
   }
 
-  .hero-sub{
-    color:#c1c1c1;
-    font-size:18px;
-    max-width:400px;
-    margin-bottom:35px;
-  }
-
-  .btn-primary{
-    display:inline-block;
-    text-decoration:none;
-    background:white;
-    color:black;
-    padding:16px 38px;
-    border-radius:40px;
-    font-weight:700;
-    text-transform:uppercase;
-    letter-spacing:2px;
-    transition:0.3s;
-  }
-
-  .btn-primary:hover{
-    background:#d9d9d9;
-    transform:translateY(-3px);
-  }
-
-  /* ================= PERKS ================= */
-
-  .perks{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    border-bottom:1px solid var(--border);
+  .category-grid,
+  .products-grid,
+  .newsletter,
+  .perks,
+  footer{
+    grid-template-columns:1fr;
   }
 
   .perk{
-    padding:30px 50px;
-    display:flex;
-    gap:18px;
-    align-items:center;
-    background:var(--dark);
-    border-right:1px solid var(--border);
-  }
-
-  .perk:last-child{
     border-right:none;
-  }
-
-  .perk-icon{
-    font-size:28px;
-  }
-
-  .perk-text strong{
-    display:block;
-    font-size:17px;
-    text-transform:uppercase;
-    font-family:var(--font-display);
-  }
-
-  .perk-text span{
-    color:var(--gray);
-    font-size:14px;
-  }
-
-  /* ================= SECTION ================= */
-
-  .section-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:70px 50px 25px;
-  }
-
-  .section-title{
-    font-family:var(--font-display);
-    font-size:48px;
-    text-transform:uppercase;
-    font-weight:900;
-  }
-
-  .see-all{
-    color:#bdbdbd;
-    text-decoration:none;
-    text-transform:uppercase;
-    letter-spacing:2px;
-    font-size:12px;
-  }
-
-  .see-all:hover{
-    color:white;
-  }
-
-  /* ================= CATEGORY GRID ================= */
-
-  .category-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:24px;
-    padding:0 50px 70px;
-  }
-
-  .category-card{
-    position:relative;
-    overflow:hidden;
-    border-radius:18px;
-    background:var(--card);
-    min-height:520px;
-  }
-
-  .cat-img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    transition:transform 0.5s ease;
-  }
-
-  .category-card:hover .cat-img{
-    transform:scale(1.06);
-  }
-
-  .cat-overlay{
-    position:absolute;
-    inset:0;
-    display:flex;
-    flex-direction:column;
-    justify-content:flex-end;
-    padding:30px;
-    background:linear-gradient(to top,rgba(0,0,0,0.85),transparent 55%);
-  }
-
-  .cat-name{
-    font-family:var(--font-display);
-    font-size:38px;
-    text-transform:uppercase;
-    font-weight:900;
-  }
-
-  .cat-link{
-    margin-top:10px;
-    color:white;
-    text-decoration:none;
-    font-size:14px;
-    letter-spacing:2px;
-    text-transform:uppercase;
-  }
-
-  /* ================= BEST SELLERS ================= */
-
-  .bestsellers{
-    padding:0 50px 80px;
-  }
-
-  .products-grid{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:28px;
-    margin-top:20px;
-  }
-
-  .product-card{
-    transition:0.3s;
-  }
-
-  .product-card:hover{
-    transform:translateY(-6px);
-  }
-
-  .product-img{
-    aspect-ratio:1/1.1;
-    overflow:hidden;
-    border-radius:18px;
-    background:var(--card);
-    margin-bottom:18px;
-  }
-
-  .product-img img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    transition:0.5s ease;
-  }
-
-  .product-card:hover img{
-    transform:scale(1.05);
-  }
-
-  .product-name{
-    font-family:var(--font-display);
-    font-size:24px;
-    text-transform:uppercase;
-  }
-
-  .product-price{
-    margin-top:5px;
-    color:#cfcfcf;
-    font-size:16px;
-  }
-
-  /* ================= NEWSLETTER ================= */
-
-  .newsletter{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:40px;
-
-    padding:60px 50px;
-
-    background:var(--dark);
-    border-top:1px solid var(--border);
     border-bottom:1px solid var(--border);
   }
 
-  .newsletter-left{
-    display:flex;
-    gap:20px;
-    align-items:center;
-  }
-
-  .mail-icon{
-    font-size:42px;
-  }
-
-  .newsletter-heading{
-    font-family:var(--font-display);
-    font-size:36px;
-    text-transform:uppercase;
-    font-weight:900;
-  }
-
-  .newsletter-sub{
-    color:var(--gray);
-    margin-top:5px;
-  }
-
   .newsletter-right{
-    display:flex;
-  }
-
-  .newsletter-input{
-    flex:1;
-    padding:16px;
-    border:none;
-    outline:none;
-    background:#2a2a2a;
-    color:white;
+    flex-direction:column;
+    gap:12px;
   }
 
   .btn-signup{
-    padding:16px 32px;
-    border:none;
-    background:white;
-    color:black;
-    font-weight:700;
-    cursor:pointer;
+    width:100%;
   }
 
-  /* ================= FOOTER ================= */
+  .category-card{
+    min-height:420px;
+  }
+}
 
-  footer{
-    display:grid;
-    grid-template-columns:1.2fr 1fr 1fr;
-    gap:40px;
-    padding:60px 50px;
+@media (max-width:480px){
+
+  .hero-title{
+    font-size:56px;
   }
 
-  .footer-col-title{
-    margin-bottom:20px;
-    color:#8d8d8d;
-    text-transform:uppercase;
-    letter-spacing:2px;
-    font-size:12px;
+  .section-title{
+    font-size:34px;
   }
 
-  .social-link{
-    display:block;
-    color:white;
-    text-decoration:none;
-    margin-bottom:12px;
+  .nav-links{
+    justify-content:center;
+    width:100%;
   }
-
-  .social-link:hover{
-    color:#cfcfcf;
-  }
-
-  .contact-item{
-    display:block;
-    margin-bottom:10px;
-    color:#9a9a9a;
-  }
-
-  .footer-copy{
-    color:#777;
-    margin-top:15px;
-    font-size:13px;
-  }
-
-  .footer-bottom{
-    text-align:center;
-    padding:20px;
-    border-top:1px solid var(--border);
-    color:#777;
-    font-size:12px;
-  }
-
-  /* ================= RESPONSIVE ================= */
-
-  @media (max-width: 1100px){
-
-    .category-grid,
-    .products-grid{
-      grid-template-columns:repeat(2,1fr);
-    }
-
-    footer{
-      grid-template-columns:1fr 1fr;
-    }
-  }
-
-  @media (max-width: 768px){
-
-    nav{
-      padding:0 20px;
-      flex-wrap:wrap;
-      height:auto;
-      padding-top:18px;
-      padding-bottom:18px;
-      gap:18px;
-    }
-
-    .nav-links{
-      gap:18px;
-      flex-wrap:wrap;
-    }
-
-    .hero{
-      padding:70px 25px;
-      min-height:75vh;
-      background-position:center;
-    }
-
-    .hero-title{
-      font-size:70px;
-    }
-
-    .section-header,
-    .category-grid,
-    .bestsellers,
-    .newsletter,
-    footer{
-      padding-left:20px;
-      padding-right:20px;
-    }
-
-    .category-grid,
-    .products-grid,
-    .newsletter,
-    .perks,
-    footer{
-      grid-template-columns:1fr;
-    }
-
-    .perk{
-      border-right:none;
-      border-bottom:1px solid var(--border);
-    }
-
-    .newsletter-right{
-      flex-direction:column;
-      gap:12px;
-    }
-
-    .btn-signup{
-      width:100%;
-    }
-
-    .category-card{
-      min-height:420px;
-    }
-  }
-
-  @media (max-width:480px){
-
-    .hero-title{
-      font-size:56px;
-    }
-
-    .section-title{
-      font-size:34px;
-    }
-
-    .nav-links{
-      justify-content:center;
-      width:100%;
-    }
-  }
+}
 
 </style>
 </head>
@@ -567,7 +581,10 @@
 
 <!-- NAV -->
 <nav>
-  <a class="logo" href="#">Sprint<span>–</span>TRIBE</a>
+
+  <a class="logo" href="#">
+    Sprint<span>–</span>TRIBE
+  </a>
 
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
@@ -576,15 +593,43 @@
     <li><a href="contact.html">Contact</a></li>
   </ul>
 
-  <div class="nav-right">
-    <button class="cart-btn">🛒</button>
-  </div>
+  <button class="cart-btn">🛒</button>
+
 </nav>
 
 <!-- HERO -->
 <section class="hero">
+
+  <!-- SLIDESHOW -->
+  <div class="hero-slider">
+
+    <div class="hero-slide active"
+      style="background-image:url('images/slide.jpg');">
+    </div>
+
+    <div class="hero-slide"
+      style="background-image:url('images/block.jpg');">
+    </div>
+
+    <div class="hero-slide"
+      style="background-image:url('images/slideshow.webp');">
+    </div>
+
+    <div class="hero-slide"
+      style="background-image:url('images/fine.avif');">
+    </div>
+
+  </div>
+
+  <!-- OVERLAY -->
+  <div class="hero-overlay"></div>
+
+  <!-- CONTENT -->
   <div class="hero-content">
-    <p class="hero-eyebrow">New Collection 2026</p>
+
+    <p class="hero-eyebrow">
+      New Collection 2026
+    </p>
 
     <h1 class="hero-title">
       Sprint<span>–</span><br>TRIBE
@@ -597,7 +642,9 @@
     <a href="equipment.html" class="btn-primary">
       Shop New Arrivals
     </a>
+
   </div>
+
 </section>
 
 <!-- PERKS -->
@@ -605,6 +652,7 @@
 
   <div class="perk">
     <div class="perk-icon">🚚</div>
+
     <div class="perk-text">
       <strong>Free Shipping</strong>
       <span>For orders over P3500</span>
@@ -613,6 +661,7 @@
 
   <div class="perk">
     <div class="perk-icon">↩</div>
+
     <div class="perk-text">
       <strong>Free Returns</strong>
       <span>Within 60 days</span>
@@ -631,32 +680,44 @@
 
   <!-- MEN -->
   <div class="category-card">
-    <img src="images/letsile.avif" class="cat-img" alt="Men Category">
+
+    <img src="images/letsile.avif"
+    class="cat-img"
+    alt="Men Category">
 
     <div class="cat-overlay">
       <span class="cat-name">Men</span>
       <a href="equipment.html" class="cat-link">Shop now</a>
     </div>
+
   </div>
 
   <!-- WOMEN -->
   <div class="category-card">
-    <img src="images/female.jpg" class="cat-img" alt="Women Category">
+
+    <img src="images/female.jpg"
+    class="cat-img"
+    alt="Women Category">
 
     <div class="cat-overlay">
       <span class="cat-name">Women</span>
       <a href="equipment.html" class="cat-link">Shop now</a>
     </div>
+
   </div>
 
   <!-- KIDS -->
   <div class="category-card">
-    <img src="images/kids.jpg" class="cat-img" alt="Kids Category">
+
+    <img src="images/kids.jpg"
+    class="cat-img"
+    alt="Kids Category">
 
     <div class="cat-overlay">
       <span class="cat-name">Kids</span>
       <a href="equipment.html" class="cat-link">Shop now</a>
     </div>
+
   </div>
 
 </div>
@@ -678,8 +739,13 @@
         <img src="images/maxfly.avif" alt="Maxfly 2">
       </div>
 
-      <div class="product-name">Maxfly 2</div>
-      <div class="product-price">P1,200</div>
+      <div class="product-name">
+        Maxfly 2
+      </div>
+
+      <div class="product-price">
+        P1,200
+      </div>
 
     </div>
 
@@ -690,8 +756,13 @@
         <img src="images/tracksuitt.jpg" alt="Tracksuit">
       </div>
 
-      <div class="product-name">Sprint Tribe TS Tracksuit</div>
-      <div class="product-price">P700</div>
+      <div class="product-name">
+        Sprint Tribe TS Tracksuit
+      </div>
+
+      <div class="product-price">
+        P700
+      </div>
 
     </div>
 
@@ -702,12 +773,18 @@
         <img src="images/Tights.jpg" alt="ST54 Tights">
       </div>
 
-      <div class="product-name">ST54 Tights</div>
-      <div class="product-price">P105</div>
+      <div class="product-name">
+        ST54 Tights
+      </div>
+
+      <div class="product-price">
+        P105
+      </div>
 
     </div>
 
   </div>
+
 </section>
 
 <!-- NEWSLETTER -->
@@ -718,18 +795,26 @@
     <div class="mail-icon">✉</div>
 
     <div>
-      <div class="newsletter-heading">Join Our Community</div>
+
+      <div class="newsletter-heading">
+        Join Our Community
+      </div>
 
       <p class="newsletter-sub">
-        Sign up for exclusive access to product launches, stories and style
+        Sign up for exclusive access to product launches,
+        stories and style
       </p>
+
     </div>
 
   </div>
 
   <div class="newsletter-right">
 
-    <input class="newsletter-input" type="email" placeholder="Enter email address">
+    <input
+    class="newsletter-input"
+    type="email"
+    placeholder="Enter email address">
 
     <button class="btn-signup">
       Sign up
@@ -743,26 +828,46 @@
 <footer>
 
   <div class="footer-brand">
-    <a class="logo" href="#">Sprint<span>–</span>TRIBE</a>
+
+    <a class="logo" href="#">
+      Sprint<span>–</span>TRIBE
+    </a>
 
     <p class="footer-copy">
       2026, Sprint-Tribe.INC. All Rights Reserved
     </p>
+
   </div>
 
   <div>
-    <div class="footer-col-title">Follow Us</div>
+
+    <div class="footer-col-title">
+      Follow Us
+    </div>
 
     <a href="#" class="social-link">TikTok</a>
     <a href="#" class="social-link">Instagram</a>
+
   </div>
 
   <div>
-    <div class="footer-col-title">Contact Us</div>
 
-    <span class="contact-item">Phone: 267 75664643</span>
-    <span class="contact-item">Gaborone, Botswana</span>
-    <span class="contact-item">sprint@sprinttribe.com</span>
+    <div class="footer-col-title">
+      Contact Us
+    </div>
+
+    <span class="contact-item">
+      Phone: 267 75664643
+    </span>
+
+    <span class="contact-item">
+      Gaborone, Botswana
+    </span>
+
+    <span class="contact-item">
+      sprint@sprinttribe.com
+    </span>
+
   </div>
 
 </footer>
@@ -771,11 +876,31 @@
   Sprint-TRIBE — Iconic Sprint-Wear
 </div>
 
+<!-- SLIDESHOW SCRIPT -->
+<script>
+
+const slides = document.querySelectorAll('.hero-slide');
+
+let currentSlide = 0;
+
+setInterval(() => {
+
+  slides[currentSlide].classList.remove('active');
+
+  currentSlide++;
+
+  if(currentSlide >= slides.length){
+    currentSlide = 0;
+  }
+
+  slides[currentSlide].classList.add('active');
+
+}, 5000);
+
+</script>
+
 </body>
 </html>
-
-
-
 
 
 
