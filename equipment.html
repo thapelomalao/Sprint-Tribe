@@ -209,32 +209,34 @@
 
   </footer>
 
-  <!-- ================= JAVASCRIPT ================= -->
+<script>
 
-  <script>
+const cartButtons = document.querySelectorAll(".add-cart");
+const cartBadge = document.querySelector(".cart-badge");
 
-    const cartButtons = document.querySelectorAll(".add-cart");
-    const cartBadge = document.querySelector(".cart-badge");
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-    let cartCount = 0;
+cartBadge.textContent = cart.length;
 
-    cartButtons.forEach(button => {
+cartButtons.forEach(button => {
 
-      button.addEventListener("click", () => {
+  button.addEventListener("click", () => {
 
-        const productName = button.dataset.name;
+    const productName = button.dataset.name;
 
-        cartCount++;
+    cart.push(productName);
 
-        cartBadge.textContent = cartCount;
+    localStorage.setItem("cart", JSON.stringify(cart));
 
-        alert(productName + " added to cart!");
+    cartBadge.textContent = cart.length;
 
-      });
+    alert(productName + " added to cart!");
 
-    });
+  });
 
-  </script>
+});
+
+</script>
 
 </body>
 </html>
