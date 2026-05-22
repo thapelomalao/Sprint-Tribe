@@ -1,1 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Sprint-Tribe | Cart</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+    }
+
+    :root{
+      --black:#111111;
+      --dark:#171717;
+      --card:#1f1f1f;
+      --light:#f5f5f5;
+      --gray:#8d8d8d;
+      --border:#2a2a2a;
+
+      --font-display:'Bebas Neue',sans-serif;
+      --font-body:'Barlow',sans-serif;
+    }
+
+    body{
+      background:var(--black);
+      color:var(--light);
+      font-family:var(--font-body);
+    }
+
+    /* NAV */
+
+    nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+
+      padding:0 50px;
+      height:72px;
+
+      border-bottom:1px solid var(--border);
+      background:#111111ee;
+    }
+
+    .logo{
+      font-family:var(--font-display);
+      font-size:34px;
+      color:white;
+      text-decoration:none;
+    }
+
+    .back-btn{
+      color:white;
+      text-decoration:none;
+      border:1px solid white;
+      padding:10px 18px;
+      transition:0.3s;
+    }
+
+    .back-btn:hover{
+      background:white;
+      color:black;
+    }
+
+    /* HERO */
+
+    .cart-hero{
+      padding:80px 50px 40px;
+    }
+
+    .cart-hero h1{
+      font-family:var(--font-display);
+      font-size:90px;
+      text-transform:uppercase;
+      letter-spacing:2px;
+    }
+
+    .cart-hero p{
+      color:var(--gray);
+      margin-top:10px;
+    }
+
+    /* CART ITEMS */
+
+    .cart-container{
+      padding:0 50px 80px;
+    }
+
+    .cart-item{
+      background:var(--card);
+      border:1px solid var(--border);
+      padding:24px;
+      border-radius:16px;
+
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+
+      margin-bottom:20px;
+    }
+
+    .cart-name{
+      font-size:24px;
+      font-family:var(--font-display);
+      letter-spacing:1px;
+    }
+
+    .remove-btn{
+      border:none;
+      background:white;
+      color:black;
+
+      padding:12px 20px;
+      cursor:pointer;
+
+      font-weight:700;
+      text-transform:uppercase;
+      transition:0.3s;
+    }
+
+    .remove-btn:hover{
+      background:#d7d7d7;
+    }
+
+    .empty-cart{
+      color:var(--gray);
+      font-size:20px;
+      text-align:center;
+      padding:60px 0;
+    }
+
+    /* FOOTER */
+
+    footer{
+      border-top:1px solid var(--border);
+      text-align:center;
+      padding:30px;
+      color:#777;
+    }
+
+    /* RESPONSIVE */
+
+    @media(max-width:768px){
+
+      nav,
+      .cart-hero,
+      .cart-container{
+        padding-left:20px;
+        padding-right:20px;
+      }
+
+      .cart-item{
+        flex-direction:column;
+        gap:20px;
+        align-items:flex-start;
+      }
+
+      .cart-hero h1{
+        font-size:60px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <!-- NAV -->
+
+  <nav>
+
+    <a href="index.html" class="logo">
+      Sprint-Tribe
+    </a>
+
+    <a href="equipment.html" class="back-btn">
+      Back to Shop
+    </a>
+
+  </nav>
+
+  <!-- HERO -->
+
+  <section class="cart-hero">
+
+    <h1>Your Cart</h1>
+
+    <p>
+      Your selected Sprint-Tribe products appear below
+    </p>
+
+  </section>
+
+  <!-- CART ITEMS -->
+
+  <div class="cart-container" id="cartContainer">
+
+  </div>
+
+  <!-- FOOTER -->
+
+  <footer>
+    2026 Sprint-Tribe. All Rights Reserved
+  </footer>
+
+  <!-- JAVASCRIPT -->
+
+  <script>
+
+    const cartContainer = document.getElementById("cartContainer");
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    function displayCart(){
+
+      cartContainer.innerHTML = "";
+
+      if(cart.length === 0){
+
+        cartContainer.innerHTML = `
+          <div class="empty-cart">
+            Your cart is currently empty.
+          </div>
+        `;
+
+        return;
+      }
+
+      cart.forEach((item, index) => {
+
+        cartContainer.innerHTML += `
+
+          <div class="cart-item">
+
+            <div class="cart-name">
+              ${item}
+            </div>
+
+            <button class="remove-btn" onclick="removeItem(${index})">
+              Remove
+            </button>
+
+          </div>
+
+        `;
+
+      });
+
+    }
+
+    function removeItem(index){
+
+      cart.splice(index, 1);
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+
+      displayCart();
+
+    }
+
+    displayCart();
+
+  </script>
+
+</body>
+</html>
